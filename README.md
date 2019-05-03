@@ -8,7 +8,7 @@ Run `docker-compose up -d`
 Run `docker-compose stop`
 
 ## Login with SSH to Docker container of WordPress image via Git Bash
-Run `winpty docker exec -it docker-wordpress-premium-theme-setup_wordpress_1 sh`
+Run `winpty docker exec -it docker-wordpress-premium-theme-setup_wordpress_1 bash`
 
 ## Quit Docker container
 Run `exit`
