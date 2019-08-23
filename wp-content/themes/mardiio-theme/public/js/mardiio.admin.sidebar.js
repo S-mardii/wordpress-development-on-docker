@@ -1,7 +1,7 @@
 jQuery( document ).ready( function($){
 	var mediaUploader;
 
-	$( '#upload-button' ).on( 'click', function( e ) {
+	$( '#upload-profile-photo' ).on( 'click', function( e ) {
 		e.preventDefault();
 
 		if( mediaUploader ) {
@@ -24,5 +24,20 @@ jQuery( document ).ready( function($){
 		});
 
 		mediaUploader.open();
+	});
+
+	$( '#remove-profile-photo' ).on('click', function( e ) {
+		e.preventDefault();
+		
+		var answer = confirm("Are you sure you want to remove your profile picture?");
+		
+		if ( answer == true) {
+			$( '#profile-picture' ).val( '' );
+
+			// Force refresh form element
+			$( '.mardiio-admin-sidebar-options-form' ).submit();
+		} else {
+			
+		}
 	});
 });
