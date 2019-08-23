@@ -54,11 +54,16 @@ function mardiio_activate_custom_settings() {
     //=========================
     //  Admin Theme Options
     //=========================
-    register_setting( 'mardiio-admin-theme-options-group', 'post_formats', 'mardiio_admin_post_formats_callback' );
+    // register_setting( 'mardiio-admin-theme-options-group', 'post_formats', 'mardiio_admin_post_formats_callback' );
+    register_setting( 'mardiio-admin-theme-options-group', 'post_formats' );
+    register_setting( 'mardiio-admin-theme-options-group', 'custom_header' );
+    register_setting( 'mardiio-admin-theme-options-group', 'custom_background' );
 
     add_settings_section( 'mardiio-admin-theme-options', 'Theme Options', 'mardiio_add_theme_options', 'mardy_mardiio' );
 
     add_settings_field( 'mardiio-theme-post-formats', 'Post Formats', 'mardiio_add_theme_post_formats', 'mardy_mardiio', 'mardiio-admin-theme-options' );
+    add_settings_field( 'mardiio-theme-custom-header', 'Custom Header', 'mardiio_add_theme_custom_header', 'mardy_mardiio', 'mardiio-admin-theme-options' );
+    add_settings_field( 'mardiio-theme-custom-background', 'Custom Background', 'mardiio_add_theme_custom_background', 'mardy_mardiio', 'mardiio-admin-theme-options' );
     
     //=========================
     //  Admin Sidebar Options
@@ -91,14 +96,9 @@ function mardiio_activate_custom_settings() {
 //  Admin Theme Options Functions
 //===================================
 
-/**
- * Collect input in array
- * @param  [type] $input [description]
- * @return [type]        [description]
- */
-function mardiio_admin_post_formats_callback( $input ) {
-    return $input;
-}
+// function mardiio_admin_post_formats_callback( $input ) {
+//     return $input;
+// }
 
 /**
  * Generate Theme Options
@@ -130,6 +130,36 @@ function mardiio_add_theme_post_formats() {
     echo $output;
 }
 
+/**
+ * Add Custom Header field
+ */
+function mardiio_add_theme_custom_header() {
+    $option = get_option( 'custom_header' );
+
+    if ( @$option == 1 ) {
+        $checked = 'checked';
+    } else {
+        $checked = '';
+    }
+
+    echo '<label><input type="checkbox" id="custom-header" name="custom_header" value="1"' . $checked . '>Activate the Custom Header</label>';
+}
+
+/**
+ * Add Custom Background field
+ */
+function mardiio_add_theme_custom_background() {
+    $option = get_option( 'custom_background' );
+
+    if ( @$option == 1 ) {
+        $checked = 'checked';
+    } else {
+        $checked = '';
+    }
+
+    echo '<label><input type="checkbox" id="custom-background" name="custom_background" value="1"' . $checked . '>Activate the Custom Background</label>';
+}
+
 //===================================
 //  Admin Sidebar Options Functions
 //===================================
@@ -148,7 +178,13 @@ function mardiio_add_sidebar_options() {
 function mardiio_add_sidebar_profile_picture() {
     $profilePicture = esc_attr( get_option( 'profile_picture' ) );
     
-    echo '<input type="button" value="Upload a Profile Picture" class="button button-secondary" id="upload-button"/> <input type="hidden" id="profile-picture" name="profile_picture" value="' . $profilePicture . '"/>';
+    if( empty( $profilePicture ) ) {
+        echo '<input type="button" value="Upload a Profile Picture" class="button button-secondary" id="upload-profile-photo"/> <input type="hidden" id="profile-picture" name="profile_picture" value="' . $profilePicture . '"/>';
+    } else {
+        echo '<input type="button" value="Update the Profile Picture" class="button button-secondary" id="upload-profile-photo"/> <input type="hidden" id="profile-picture" name="profile_picture" value="' . $profilePicture . '"/>';
+
+        echo '<input type="button" value="Remove" class="button button-secondary" id="remove-profile-photo"/>';
+    }
 }
 
 /**

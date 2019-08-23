@@ -1,0 +1,6 @@
+#gitignore files
+.directory
+
+#gitignore directories
+/wp-content/uploads
+/wp-content/themes/twentynineteen

@@ -19,7 +19,7 @@
 <form method="post" action="options.php" class="mardiio-admin-sidebar-options-form">
     <?php settings_fields( 'mardiio-admin-sidebar-options-group' ); ?>
     <?php do_settings_sections( 'mardy_mardiio_admin_sidebar_options_section' ); ?>
-    <?php submit_button(); ?>
+    <?php submit_button( 'Save changes', 'primary', 'btnSubmit' ); ?>
 </form>
 
 <div class="mardiio-sidebar-preview">
