@@ -18,6 +18,8 @@ function mardiio_add_admin_page() {
     // Add Mardiio Admin Sidebar Subpage
     add_submenu_page( 'mardy_mardiio', 'Mardiio Sidebar Options', 'Sidebar', 'manage_options', 'mardy_mardiio_admin_sidebar', 'mardiio_create_admin_sidebar_page' );
 
+    add_submenu_page( 'mardy_mardiio', 'Mardiio Contact Form Options', 'Contact Form', 'manage_options', 'mardy-mardiio-admin-contact-form', 'mardiio_create_admin_contact_form_page' );
+
     // Add Mardiio Admin Custom CSS Subpage
     add_submenu_page( 'mardy_mardiio', 'Mardiio CSS Options', 'Custom CSS', 'manage_options', 'mardy_mardiio_admin_custom_css', 'mardiio_create_admin_custom_css_page' );
 
@@ -41,6 +43,13 @@ function mardiio_create_admin_sidebar_page() {
 }
 
 /**
+ * Generate Admin Contact Form Page
+ */
+function mardiio_create_admin_contact_form_page() {
+    require_once( get_template_directory() . '/inc/templates/mardiio-admin-contact-form-options.php' );
+}
+
+/**
  * Generate Admin Custom CSS Page 
  */
 function mardiio_create_admin_custom_css_page() {
@@ -59,11 +68,11 @@ function mardiio_activate_custom_settings() {
     register_setting( 'mardiio-admin-theme-options-group', 'custom_header' );
     register_setting( 'mardiio-admin-theme-options-group', 'custom_background' );
 
-    add_settings_section( 'mardiio-admin-theme-options', 'Theme Options', 'mardiio_add_theme_options', 'mardy_mardiio' );
+    add_settings_section( 'mardiio-admin-theme-options-section', 'Theme Options', 'mardiio_add_theme_options', 'mardy_mardiio' );
 
-    add_settings_field( 'mardiio-theme-post-formats', 'Post Formats', 'mardiio_add_theme_post_formats', 'mardy_mardiio', 'mardiio-admin-theme-options' );
-    add_settings_field( 'mardiio-theme-custom-header', 'Custom Header', 'mardiio_add_theme_custom_header', 'mardy_mardiio', 'mardiio-admin-theme-options' );
-    add_settings_field( 'mardiio-theme-custom-background', 'Custom Background', 'mardiio_add_theme_custom_background', 'mardy_mardiio', 'mardiio-admin-theme-options' );
+    add_settings_field( 'mardiio-theme-post-formats', 'Post Formats', 'mardiio_add_theme_post_formats', 'mardy_mardiio', 'mardiio-admin-theme-options-section' );
+    add_settings_field( 'mardiio-theme-custom-header', 'Custom Header', 'mardiio_add_theme_custom_header', 'mardy_mardiio', 'mardiio-admin-theme-options-section' );
+    add_settings_field( 'mardiio-theme-custom-background', 'Custom Background', 'mardiio_add_theme_custom_background', 'mardy_mardiio', 'mardiio-admin-theme-options-section' );
     
     //=========================
     //  Admin Sidebar Options
@@ -79,17 +88,26 @@ function mardiio_activate_custom_settings() {
     register_setting( 'mardiio-admin-sidebar-options-group', 'linkedin_handler' );
 
     // Create sections
-    add_settings_section( 'mardiio-admin-sidebar-options', 'Sidebar Options', 'mardiio_add_sidebar_options', 'mardy_mardiio_admin_sidebar_options_section' );
+    add_settings_section( 'mardiio-admin-sidebar-options-section', 'Sidebar Options', 'mardiio_add_sidebar_options', 'mardy_mardiio_admin_sidebar_options_section' );
     
     // Add fields
-    add_settings_field( 'mardiio-sidebar-profile-picture', 'Profile Picture', 'mardiio_add_sidebar_profile_picture', 'mardy_mardiio_admin_sidebar_options_section', 'mardiio-admin-sidebar-options' );
+    add_settings_field( 'mardiio-sidebar-profile-picture', 'Profile Picture', 'mardiio_add_sidebar_profile_picture', 'mardy_mardiio_admin_sidebar_options_section', 'mardiio-admin-sidebar-options-section' );
     
-    add_settings_field( 'mardiio-sidebar-full-name', 'Full Name', 'mardiio_add_sidebar_full_name', 'mardy_mardiio_admin_sidebar_options_section', 'mardiio-admin-sidebar-options' );
-    add_settings_field( 'mardiio-sidebar-discription', 'User Description', 'mardiio_add_sidebar_description', 'mardy_mardiio_admin_sidebar_options_section', 'mardiio-admin-sidebar-options' );
+    add_settings_field( 'mardiio-sidebar-full-name', 'Full Name', 'mardiio_add_sidebar_full_name', 'mardy_mardiio_admin_sidebar_options_section', 'mardiio-admin-sidebar-options-section' );
+    add_settings_field( 'mardiio-sidebar-discription', 'User Description', 'mardiio_add_sidebar_description', 'mardy_mardiio_admin_sidebar_options_section', 'mardiio-admin-sidebar-options-section' );
     
-    add_settings_field( 'mardiio-sidebar-twitter', 'Twitter', 'mardiio_add_sidebar_twitter', 'mardy_mardiio_admin_sidebar_options_section', 'mardiio-admin-sidebar-options' );
-    add_settings_field( 'mardiio-sidebar-facebook', 'Facebook', 'mardiio_add_sidebar_facebook', 'mardy_mardiio_admin_sidebar_options_section', 'mardiio-admin-sidebar-options' );
-    add_settings_field( 'mardiio-sidebar-linkedin', 'LinkedIn', 'mardiio_add_sidebar_linkedin', 'mardy_mardiio_admin_sidebar_options_section', 'mardiio-admin-sidebar-options' );
+    add_settings_field( 'mardiio-sidebar-twitter', 'Twitter', 'mardiio_add_sidebar_twitter', 'mardy_mardiio_admin_sidebar_options_section', 'mardiio-admin-sidebar-options-section' );
+    add_settings_field( 'mardiio-sidebar-facebook', 'Facebook', 'mardiio_add_sidebar_facebook', 'mardy_mardiio_admin_sidebar_options_section', 'mardiio-admin-sidebar-options-section' );
+    add_settings_field( 'mardiio-sidebar-linkedin', 'LinkedIn', 'mardiio_add_sidebar_linkedin', 'mardy_mardiio_admin_sidebar_options_section', 'mardiio-admin-sidebar-options-section' );
+    
+    //=========================
+    //  Admin Contact Form Options
+    //=========================
+    register_setting( 'mardiio-admin-contact-form-options-group', 'activate_contact_form' );
+
+    add_settings_section( 'mardiio-admin-contact-form-options-section', 'Contact Form Options', 'mardiio_add_admin_contact_form_options_section', 'mardy-mardiio-admin-contact-form' );
+
+    add_settings_field( 'mardiio-activate-contact-form', 'Activate', 'mardiio_add_activate_contact_form', 'mardy-mardiio-admin-contact-form', 'mardiio-admin-contact-form-options-section' );
 }
 
 //===================================
@@ -172,8 +190,7 @@ function mardiio_add_sidebar_options() {
 }
 
 /**
- * [mardiio_add_sidebar_profile_picture description]
- * @return [type] [description]
+ * Add Profile Picture field to Sidebar
  */
 function mardiio_add_sidebar_profile_picture() {
     $profilePicture = esc_attr( get_option( 'profile_picture' ) );
@@ -230,6 +247,31 @@ function mardiio_add_sidebar_linkedin() {
     $linkedin = esc_attr( get_option( 'linkedin_handler' ) );
 
     echo '<input type="text" name="linkedin_handler" value="' . $linkedin . '" placeholder="LinkedIn handler" />';
+}
+
+//===================================
+//  Admin Contact Form Options Functions
+//===================================
+/**
+ * Add Contact Form Options section
+ */
+function mardiio_add_admin_contact_form_options_section() {
+    echo 'Manage the contact form for your theme.';
+}
+
+/**
+ * Add Activate Contact Form checkbox
+ */
+function mardiio_add_activate_contact_form() {
+    $option = get_option( 'activate_contact_form' );
+
+    if ( @$option == 1 ) {
+        $checked = 'checked';
+    } else {
+        $checked = '';
+    }
+
+    echo '<label><input type="checkbox" id="activate-contact-form" name="activate_contact_form" value="1"' . $checked . '>Activate the Contact Form</label>';
 }
 
 //===========================

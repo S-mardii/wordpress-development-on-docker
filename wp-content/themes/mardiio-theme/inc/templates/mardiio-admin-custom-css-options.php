@@ -4,4 +4,4 @@
  */
 ?>
 
-<h1>Mardiio CSS Options</h1>
+<h1>Mardiio Custom CSS Options</h1>
