@@ -4,3 +4,4 @@
 #gitignore directories
 /wp-content/uploads
 /wp-content/themes/twentynineteen
+/wp-content/themes/mardiio-theme/node_modules

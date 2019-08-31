@@ -107,7 +107,16 @@ function mardiio_activate_custom_settings() {
 
     add_settings_section( 'mardiio-admin-contact-form-options-section', 'Contact Form Options', 'mardiio_add_admin_contact_form_options_section', 'mardy-mardiio-admin-contact-form' );
 
-    add_settings_field( 'mardiio-activate-contact-form', 'Activate', 'mardiio_add_activate_contact_form', 'mardy-mardiio-admin-contact-form', 'mardiio-admin-contact-form-options-section' );
+    add_settings_field( 'mardiio-activate-contact-form', 'Activate', 'mardiio_add_activate_contact_form_field', 'mardy-mardiio-admin-contact-form', 'mardiio-admin-contact-form-options-section' );
+
+    //=========================
+    //  Admin Custom CSS Options
+    //=========================
+    register_setting( 'mardiio-admin-custom-css-options-group', 'custom_css', 'mardiio_sanitize_custom_css' );
+
+    add_settings_section( 'mardiio-admin-custom-css-options-section', 'Custom CSS Options', 'mardiio_add_admin_custom_css_options_section', 'mardy_mardiio_admin_custom_css' );
+
+    add_settings_field( 'mardiio-custom-css', 'Custom CSS', 'mardiio_add_custom_css_field', 'mardy_mardiio_admin_custom_css', 'mardiio-admin-custom-css-options-section' );
 }
 
 //===================================
@@ -262,7 +271,7 @@ function mardiio_add_admin_contact_form_options_section() {
 /**
  * Add Activate Contact Form checkbox
  */
-function mardiio_add_activate_contact_form() {
+function mardiio_add_activate_contact_form_field() {
     $option = get_option( 'activate_contact_form' );
 
     if ( @$option == 1 ) {
@@ -272,6 +281,28 @@ function mardiio_add_activate_contact_form() {
     }
 
     echo '<label><input type="checkbox" id="activate-contact-form" name="activate_contact_form" value="1"' . $checked . '>Activate the Contact Form</label>';
+}
+
+//===================================
+//  Admin Custom CSS Options Functions
+//===================================
+/**
+ * Add Custom CSS Options section
+ */
+function mardiio_add_admin_custom_css_options_section() {
+    echo 'Customize Mardiio Theme with your own CSS';
+}
+
+/**
+ * Add Custom CSS field
+ */
+function mardiio_add_custom_css_field() {
+    $option = get_option( 'custom_css' );
+
+    $customCSS = ( empty( $option ) ? '/* Mardiio Theme Custom CSS */' : $option );
+
+    echo '<div id="custom-css-text-editor">' . $customCSS . '</div>';
+    echo '<textarea id="custom_css" name="custom_css" style="display: none; visibility: hidden">' . $customCSS . '</textarea>';
 }
 
 //===========================
@@ -287,6 +318,19 @@ function mardiio_add_activate_contact_form() {
 function mardiio_sanitize_twitter_handler( String $input ) {
     $output = sanitize_text_field( $input );
     $output = str_replace( '@', '', $output );
+
+    return $output;
+}
+
+/**
+ * Sanitize Custom CSS
+ * 
+ * @param  String $input
+ * 
+ * @return String $output
+ */
+function mardiio_sanitize_custom_css( String $input ) {
+    $output = esc_textarea( $input );
 
     return $output;
 }

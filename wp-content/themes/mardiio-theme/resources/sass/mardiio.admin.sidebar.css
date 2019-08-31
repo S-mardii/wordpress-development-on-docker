@@ -1,0 +1,51 @@
+/* @package Mardiio-Theme */
+.mardiio-sidebar {
+	display: block;
+	text-align: center;
+}
+
+.mardiio-admin-sidebar-options-form,
+.mardiio-sidebar-preview {
+	display: inline-block;
+	float: left;
+}
+
+.mardiio-sidebar-preview {
+	background-color: #1f1f1f;
+	margin-left: 10em;
+	padding: 10em;
+	text-align: center;
+	width: 250px;
+}
+
+h1.mardiio-sidebar-username,
+h2.mardiio-sidebar-description {
+	font-weight: 100;
+	color: #fff;
+}
+
+h1.mardiio-sidebar-username {
+	font-size: 24px;
+}
+
+h2.mardiio-sidebar-description {
+	font-size: 13px;
+}
+
+.image-container {
+	display: block;
+	width: 100%;
+	overflow: hidden;
+	text-align: center;
+}
+
+.profile-picture {
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	border-radius: 50%;
+	height: 150px;
+	margin: 20px auto; 
+	width: 150px;
+	overflow: hidden;
+}
