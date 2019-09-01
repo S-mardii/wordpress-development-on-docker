@@ -4,6 +4,12 @@
  */
 
 /**
+ * ===============================
+ * Admin Enqueue Functions
+ * ===============================
+*/
+
+/**
  * Load CSS file for Admin page
  * @param  $hook	String
  */
@@ -26,3 +32,22 @@ function mardiio_load_admin_scripts( $hook ) {
 	}
 }
 add_action( 'admin_enqueue_scripts', 'mardiio_load_admin_scripts' );
+
+/**
+ * ===============================
+ * Frontend Enqueue Functions
+ * ===============================
+ */
+function mardiio_load_frontend_scripts() {
+	wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/node_modules/bootstrap/dist/css/bootstrap.min.css', [], '4.3.1', 'all' );
+
+	wp_deregister_script( 'jquery' );
+	
+	wp_register_script( 'jquery', get_template_directory_uri() . '/node_modules/jquery/dist/jquery.min.js', false, '3.4.1', true );
+	wp_enqueue_script( 'jquery' );
+	
+	wp_enqueue_script( 'popper', get_template_directory_uri() . '/node_modules/popper.js/dist/popper.min.js', ['jquery'], '1.14.7', true );
+	
+	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/node_modules/bootstrap/dist/js/bootstrap.min.js', ['jquery'], '4.3.1', true );
+}
+add_action( 'wp_enqueue_scripts', 'mardiio_load_frontend_scripts' );
